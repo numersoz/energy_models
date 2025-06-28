@@ -64,11 +64,11 @@ class Scheduler:
 # Factory functions to plug into the ZoneExhaustFan class
 
 
-def make_flow_fraction_schedule(schedule: Schedule) -> Callable[[float], float]:
+def make_flow_fraction_schedule(schedule: Scheduler) -> Callable[[float], float]:
     return lambda t: schedule.get_value(t)
 
 
 def make_availability_schedule(
-    schedule: Schedule, threshold: float = 0.1
+    schedule: Scheduler, threshold: float = 0.1
 ) -> Callable[[float], bool]:
     return lambda t: schedule.get_value(t) > threshold

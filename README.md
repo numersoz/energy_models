@@ -16,6 +16,31 @@ EnergyPlus performance curves implementation for modeling HVAC and plant compone
 - **Features**: Linear, quadratic, cubic, biquadratic, and other curve types with mathematical formulas
 - **Documentation**: [Curves README](energy_models/curves/README.md)
 
+### 🔥❄️ Coils
+Collection of heating and cooling coil models based on EnergyPlus coil objects with different energy sources and control strategies.
+
+#### Coil Models Available:
+
+- **Cooling Water Coil** - Chilled water cooling coil
+  - **Type**: Hydronic cooling with chilled water
+  - **Features**: Curve-modified capacity, sensible heat ratio control, valve modulation, indirect power consumption
+  - **Documentation**: [CoolingWater README](energy_models/coils/cooling_water/README.md)
+
+- **Heating Water Coil** - Hot water heating coil
+  - **Type**: Hydronic heating with hot water
+  - **Features**: Curve-modified capacity, modulating valve control, temperature/flow modifier curves
+  - **Documentation**: [HeatingWater README](energy_models/coils/heating_water/README.md)
+
+- **Heating Electric Coil** - Electric resistance heating coil
+  - **Type**: Direct electric heating
+  - **Features**: Simple capacity model, user-defined efficiency, temperature/capacity control, direct power consumption
+  - **Documentation**: [HeatingElectric README](energy_models/coils/heating_electric/README.md)
+
+- **Heating Steam Coil** - Steam-to-air heating coil
+  - **Type**: Steam condensation heating
+  - **Features**: Steam flow control, subcooling modeling, zone load or temperature setpoint control
+  - **Documentation**: [HeatingSteam README](energy_models/coils/heating_steam/README.md)
+
 ### 🌪️ Fans
 Collection of fan models based on EnergyPlus fan objects with different control strategies and power models.
 

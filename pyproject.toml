@@ -67,10 +67,10 @@ test = [
 ]
 
 [project.urls]
-Homepage = "https://github.com/yourusername/energy_models"
-Documentation = "https://github.com/yourusername/energy_models#readme"
-Repository = "https://github.com/yourusername/energy_models"
-"Bug Tracker" = "https://github.com/yourusername/energy_models/issues"
+Homepage = "https://github.com/numersoz/energy_models"
+Documentation = "https://github.com/numersoz/energy_models#readme"
+Repository = "https://github.com/numersoz/energy_models"
+"Bug Tracker" = "https://github.com/numersoz/energy_models/issues"
 
 [tool.setuptools.packages.find]
 where = ["."]
