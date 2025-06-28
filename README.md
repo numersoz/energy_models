@@ -3,6 +3,8 @@ Energy Modelling Tool Kit
 
 A comprehensive Python package for energy modeling, featuring performance curves, schedulers, and various fan models based on EnergyPlus components.
 
+Some of this package re-implements selected EnergyPlus HVAC component models in Python, based on publicly available documentation published by the U.S. Department of Energy. This project is not affiliated with or endorsed by EnergyPlus or DOE.
+
 ## 📦 Modules Overview
 
 ### 🕒 Scheduler
