@@ -1,5 +1,4 @@
-# energy_models
-Energy Modelling Tool Kit
+# Energy Modelling Tool Kit
 
 A comprehensive Python package for energy modeling, featuring performance curves, schedulers, and various fan models based on EnergyPlus components.
 
@@ -58,4 +57,4 @@ This package provides Python implementations of EnergyPlus components for energy
 
 ## 📚 References
 
-All implementations are based on EnergyPlus documentation and formulas. Specific references are provided in each module's README file.
+Some implementations are based on EnergyPlus documentation and formulas. Specific references are provided in each module's README file.
