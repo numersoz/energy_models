@@ -76,6 +76,21 @@ Collection of fan models based on EnergyPlus fan objects with different control 
   - **Features**: Flow fraction scheduling, modulating control, zone-specific exhaust
   - **Documentation**: [ZoneExhaust README](energy_models/fans/zone_exhaust/README.md)
 
+### 🚰 Valves
+Collection of control valve models for modulating water flow in hydronic systems with different flow characteristics and control strategies.
+
+#### Valve Models Available:
+
+- **2-Way Control Valve** - Characterized flow control valve
+  - **Type**: Modulating (0-1 signal) flow control
+  - **Features**: Equal-percentage, linear, or quick opening characteristics, configurable Kv flow coefficient, pressure-dependent flow
+  - **Documentation**: [2WayControl README](energy_models/valves/2_way_control/README.md)
+
+- **3-Way Control Valve** - Mixing or diverting valve with dual flow paths
+  - **Type**: Dual-port modulating control (A-AB and B-AB)
+  - **Features**: Independent flow characteristics per port, bypass flow control, configurable cap ratio, constant total flow capability
+  - **Documentation**: [3WayControl README](energy_models/valves/3_way_control/README.md)
+
 ## 🚀 Getting Started
 
 This package provides Python implementations of EnergyPlus components for energy modeling applications. Each module includes detailed documentation and examples for integration into larger simulation workflows.
