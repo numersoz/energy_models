@@ -21,8 +21,8 @@ class CurveSpeedControlledFan:
         Args:
             rho (float): Air density (kg/m³).
             area_outlet (float): Fan outlet area (m²).
-            eta_fan (float): Fan efficiency (0-1).
-            eta_motor (float): Motor efficiency (0-1).
+            eta_fan (float): Fan efficiency (0–1).
+            eta_motor (float): Motor efficiency (0–1).
             f_motor_to_air (float): Fraction of motor losses added to air stream.
             fan_curve (Callable[[float, float], float]): Function mapping (Q, RPM) to fan pressure rise (Pa).
             system_pressure_func (Callable[[float], float]): Function mapping Q to downstream system pressure loss (Pa).
@@ -41,16 +41,28 @@ class CurveSpeedControlledFan:
 
     def compute(self, rpm: float, h_in: float) -> Dict[str, float]:
         """
-        Compute fan performance at given fan speed and outlet static pressure.
+        Compute fan performance at a given fan speed.
 
         Args:
-            rpm (float): Fan rotational speed in RPM.
+            rpm (float): Fan rotational speed (RPM).
             h_in (float): Inlet air enthalpy (J/kg).
 
         Returns:
-            Dict[str, float]: Dictionary of computed fan performance values.
+            Dict[str, float]: Dictionary containing:
+                - "Q" (float): Airflow rate (m³/s).
+                - "RPM" (float): Fan speed (RPM).
+                - "v_out" (float): Outlet air velocity (m/s).
+                - "DeltaP_fan" (float): Total pressure rise by fan (Pa).
+                - "DeltaP_static" (float): Static pressure rise (Pa).
+                - "W_shaft" (float): Shaft power delivered to fan (W).
+                - "W_belt" (float): Power loss in belt drive (W).
+                - "W_motor_in" (float): Input power to motor (W).
+                - "W_vfd" (float): Power loss in VFD (W).
+                - "W_electric" (float): Total electrical power drawn (W).
+                - "Q_to_air" (float): Heat gain to air from motor losses (W).
+                - "h_out" (float): Outlet air enthalpy (J/kg).
+                - "m_dot" (float): Air mass flow rate (kg/s).
         """
-
         def residual(Q: float) -> float:
             return self.fan_curve(Q, rpm) - self.system_pressure_func(Q)
 
@@ -59,20 +71,17 @@ class CurveSpeedControlledFan:
             raise RuntimeError("Fan flow solver did not converge.")
         Q = sol.root
 
-        # Compute pressures
         delta_p_fan = self.fan_curve(Q, rpm)
         v_out = Q / self.area_outlet
         p_velocity = 0.5 * self.rho * v_out**2
         delta_p_static = delta_p_fan - p_velocity
 
-        # Power calculations
         W_shaft = Q * delta_p_fan / self.eta_fan
         W_belt = self.belt_loss_func(W_shaft)
         W_motor_in = (W_shaft + W_belt) / self.eta_motor
         W_vfd = self.vfd_loss_func(W_motor_in)
         W_electric = W_motor_in + W_vfd
 
-        # Thermal output
         m_dot = self.rho * Q
         Q_to_air = self.f_motor_to_air * (W_electric - W_shaft - W_belt)
         h_out = h_in + (Q_to_air / m_dot) if m_dot > 0 else h_in
@@ -80,6 +89,7 @@ class CurveSpeedControlledFan:
         return {
             "Q": Q,
             "RPM": rpm,
+            "v_out": v_out,
             "DeltaP_fan": delta_p_fan,
             "DeltaP_static": delta_p_static,
             "W_shaft": W_shaft,

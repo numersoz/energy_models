@@ -45,12 +45,18 @@ $$
 
 ---
 
-#### 2. Static Pressure Rise
+#### 2. Air Velocity and Static Pressure Rise
+
+Outlet air velocity is:
+
+$$
+v_{\text{out}} = \frac{Q}{A_{\text{out}}}
+$$
 
 Outlet velocity pressure is:
 
 $$
-P_{\text{velocity}} = \tfrac12 \rho \left( \frac{Q}{A_{\text{out}}} \right)^2
+P_{\text{velocity}} = \tfrac12 \rho v_{\text{out}}^2
 $$
 
 Then:
@@ -59,8 +65,9 @@ $$
 \Delta P_{\text{fan,static}} = \Delta P_{\text{fan}} - P_{\text{velocity}}
 $$
 
-- $ \rho $: Air density (kg/m³)  
-- $ A_{\text{out}} $: Outlet cross-sectional area (m²)
+- $ v_{\text{out}} $: Outlet velocity (m/s)  
+- $ A_{\text{out}} $: Outlet cross-sectional area (m²)  
+- $ \rho $: Air density (kg/m³)
 
 ---
 

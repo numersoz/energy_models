@@ -89,3 +89,51 @@ $$
 - Coil bypassed if load is zero or unavailable
 
 ---
+
+#### 7. Airside Pressure Drop
+
+The coil introduces a pressure drop to the air stream, which varies with air velocity or volumetric flow rate. This pressure loss must be overcome by the fan and is important for accurate fan power modeling.
+
+A simplified quadratic model is typically used:
+
+$$
+\Delta P_{\text{coil}}(Q) = K \cdot Q^2
+$$
+
+- $Q$: Air volumetric flow rate (m³/s)  
+- $K$: Empirical resistance coefficient (Pa·s²/m⁶), specific to coil geometry, wet/dry state, and number of rows  
+- $\Delta P_{\text{coil}}$: Air pressure drop across the coil (Pa)
+
+Alternatively, this can be implemented via a callable function, fitted to manufacturer airside pressure drop curves.
+
+---
+
+#### 8. Waterside Pressure Drop
+
+Manufacturers typically provide water-side pressure drop as a function of water volumetric flow rate in charts or tables.
+
+- Flow rate is given in **L/s** or **m³/h**
+- Pressure drop is provided in **kPa** or **Pa**
+
+A typical approach to modeling this relationship is:
+
+$$
+\Delta P_{\text{water}} = K_w \cdot \dot{V}_{\text{water}}^n
+$$
+
+Where:
+
+- $\Delta P_{\text{water}}$: Pressure drop across the coil water side (Pa or kPa)  
+- $\dot{V}_{\text{water}}$: Water volumetric flow rate (m³/s)  
+- $K_w$: Empirical water-side resistance coefficient  
+- $n$: Exponent typically between 1.8 and 2.0 for turbulent flow
+
+Alternatively, a Kv-type formulation may be used:
+
+$$
+\dot{V}_{\text{water}} = K_v \cdot \sqrt{\Delta P}
+$$
+
+These relationships can be implemented as callable functions or curve fits based on manufacturer data and are essential for pump head estimation and system control logic.
+
+---
