@@ -1,6 +1,6 @@
 # 📈 EnergyPlus Performance Curves — All Types and Formulas
 
-These curves are used throughout EnergyPlus to model performance of HVAC and plant components such as fans, coils, pumps, and pressure drops.
+These curves are used throughout EnergyPlus to model performance of HVAC and plant components such as fans, coils, pumps, and pressure drops. So custom curves not covered by EnergyPlus also exist.
 
 Reference: https://bigladdersoftware.com/epx/docs/9-0/input-output-reference/group-performance-curves.html#group---performance-curves
 
@@ -153,3 +153,27 @@ Where:
 - $y$ = dependent variable
 
 ---
+
+---
+
+## 🔹 14. Curve:FanPressureRise:SpeedScaled
+
+Extends `Curve:FanPressureRise` to support variable-speed fans using fan affinity laws.
+
+### ⚙️ Speed-Aware Pressure Rise
+
+$$
+\Delta P(N) = \left( \frac{N}{N_{\text{ref}}} \right)^2 \cdot \Delta P\left( \frac{Q}{N / N_{\text{ref}}},\ P_{\text{duct}} \right)
+$$
+
+Where:
+- $N$ = current fan speed (RPM)  
+- $N_{\text{ref}}$ = reference fan speed (RPM at which the coefficients were derived)  
+- $Q$ = actual flow rate (m³/s)  
+- $P_{\text{duct}}$ = duct static pressure (Pa)  
+- $\Delta P$ = fan total pressure rise (Pa)
+
+### 🧠 Notes
+- This preserves the shape of the original fan curve.
+- Enables reuse of fan manufacturer data from a single speed across a full operating range.
+- Required for accurate modeling of VFD-controlled fans.

@@ -168,3 +168,20 @@ def curve_rectangular_hyperbola_2(
     y = (C1 * x) / (C2 + x) + C3 * x
     """
     return lambda x: (c1 * x) / (c2 + x) + c3 * x
+
+def make_speed_scaled_fan_curve(
+    base_curve: Callable[[float, float], float],
+    N_ref: float,
+) -> Callable[[float, float, float], float]:
+    """
+    Wraps a fan pressure curve to support speed scaling via affinity laws.
+
+    Args:
+        base_curve (Callable): A function f(Q, P_duct) -> ΔP at reference speed.
+        N_ref (float): Reference fan speed (RPM) used to derive base_curve.
+
+    Returns:
+        Callable[[float, float, float], float]: ΔP = f(Q, P_duct, RPM)
+    """
+    return lambda Q, P_duct, N: (N / N_ref) ** 2 * base_curve(Q / (N / N_ref), P_duct)
+

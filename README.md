@@ -1,6 +1,6 @@
 # Energy Modelling Tool Kit
 
-A comprehensive Python package for energy modeling, featuring performance curves, schedulers, and various fan models based on EnergyPlus components.
+A comprehensive Python package for energy modeling, featuring performance curves, schedulers, and various HVAC models.
 
 Some of this package re-implements selected EnergyPlus HVAC component models in Python, based on publicly available documentation published by the U.S. Department of Energy. This project is not affiliated with or endorsed by EnergyPlus or DOE.
 
@@ -60,6 +60,11 @@ Collection of fan models based on EnergyPlus fan objects with different control 
   - **Type**: Modulating (0-1) control
   - **Features**: Variable flow with load, curve-based power model, availability + flow fraction scheduling
   - **Documentation**: [VariableVolume README](energy_models/fans/variable_volume/README.md)
+
+- **Curve Speed Controlled Fan** - Variable-speed fan with RPM control
+  - **Type**: Speed-controlled (RPM setpoint)
+  - **Features**: Flow solved from fan curve and system resistance, full physics power model (fan, motor, belt, VFD), manufacturer curve interpolation
+  - **Documentation**: [CurveSpeedControlled README](energy_models/fans/curve_speed_controlled/README.md)
 
 - **On/Off Fan** - Binary operation fan
   - **Type**: Binary (On/Off) control
